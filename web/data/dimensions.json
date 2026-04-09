@@ -1,0 +1,215 @@
+{
+  "foundationalRequirements": [
+    { "name": "Data Accessibility", "description": "All relevant data sources — internal systems, editorial databases, and external datasets — must be retrievable and accessible to the implementation team." },
+    { "name": "System Interoperability", "description": "Data sources must be connectable within a shared environment. Siloed systems that cannot exchange data programmatically will block cross-source modelling regardless of data availability." }
+  ],
+  "dimensions": [
+    {
+      "id": "investigative-reporting",
+      "name": "Investigative Reporting",
+      "description": "Using AI-driven analytical tools to process large volumes of unstructured data, uncover trends and anomalies, and develop impactful news stories.",
+      "prerequisites": [
+        { "displayName": "Existing Articles & Internal Archives", "globalId": "prereq-001", "items": ["Full text of past investigative reports, editorial notes, published articles, and associated metadata"] },
+        { "displayName": "Public Records & Structured Data", "globalId": "prereq-002", "items": ["Government registries, corporate filings, court rulings, open-data portals, and statistical datasets"] },
+        { "displayName": "Image & Media Data", "globalId": "prereq-003", "items": ["Photographs and video footage for identity verification and visual evidence"] },
+        { "displayName": "Domain Expert Access", "globalId": "prereq-004", "items": ["Subject-matter experts available for fact identification, hypothesis formation, and validation"] }
+      ],
+      "useCases": [
+        { "name": "Image-Based Identity Verification", "requiredPrereqIds": ["prereq-002", "prereq-003"], "modellingProcess": "Facial recognition, image matching, identity cross-referencing against public records", "modelOutput": "Identity match reports with confidence scores", "referenceCase": "Ukrainian Children Investigation" },
+        { "name": "Data-Driven Investigative Leads", "requiredPrereqIds": ["prereq-001", "prereq-002", "prereq-004"], "modellingProcess": "Entity extraction, association and anomaly detection, cross-language document matching", "modelOutput": "Entity relationship networks and anomaly reports", "referenceCase": "AI-Powered Reporting on New Legislators" }
+      ],
+      "technicalAssessments": [
+        { "title": "Data collection", "content": "When no ready-made data source exists, web scraping is required. Modern websites commonly employ anti-scraping mechanisms; manageable at small scale, but a data provider may be needed for larger volumes." },
+        { "title": "Data processing", "content": "Data arriving in different formats requires corresponding specialised tools for cleaning and transformation." },
+        { "title": "Data exploration", "content": "Using AI to explore data requires guarding against hallucinations; an evidence-based approach must be adopted to verify factual sources." },
+        { "title": "Cross-language and cross-source processing", "content": "Matching documents across languages (e.g., Chinese and English company registrations, foreign-language court rulings) demands attention to proper-noun consistency and translation quality." },
+        { "title": "Sensitive data handling", "content": "Data must be de-identified before being sent to an LLM, or a local model should be used instead. Compliance with Taiwan's Personal Data Protection Act must also be ensured." }
+      ]
+    },
+    {
+      "id": "interactive-data-visualization",
+      "name": "Interactive Data Visualization",
+      "description": "Using AI to analyse and synthesise large datasets, enhancing visual storytelling to create more engaging content that reaches a broader audience.",
+      "prerequisites": [
+        { "displayName": "Article Content & Metadata", "globalId": "prereq-001", "items": ["Full text of past articles, headlines, tags, publication date, author, category"] },
+        { "displayName": "External Structured Data", "globalId": "prereq-005", "items": ["Government open data, statistical datasets, geographic and regional data"] },
+        { "displayName": "External Unstructured Data", "globalId": "prereq-006", "items": ["Social media posts, third-party data providers"] },
+        { "displayName": "Domain Expert Access", "globalId": "prereq-004", "items": ["Subject matter experts available for feature definition and model validation"] }
+      ],
+      "useCases": [
+        { "name": "Data-Driven Visual Storytelling", "requiredPrereqIds": ["prereq-001", "prereq-005"], "modellingProcess": "Structured data cleaning, feature extraction, interactive chart generation", "modelOutput": "Embeddable interactive data visualisations", "referenceCase": "Ebola Virus Hotspot Map" },
+        { "name": "Sentiment Analysis Visualisation", "requiredPrereqIds": ["prereq-001", "prereq-006"], "modellingProcess": "Spam filtering, full-article semantic encoding, sentiment classification", "modelOutput": "Sentiment trend charts by political figure", "referenceCase": "Election Social Media Sentiment Analysis" },
+        { "name": "Predictive Visual Insights", "requiredPrereqIds": ["prereq-001", "prereq-005", "prereq-004"], "modellingProcess": "Feature engineering, prediction models (logistic regression / tree-based), expert validation", "modelOutput": "Predictive hotspot maps with confidence intervals", "referenceCase": "Ebola Virus Hotspot Prediction" }
+      ],
+      "technicalAssessments": [
+        { "title": "Evaluation set construction", "content": "A standardized test set must be established, covering common cases and edge cases with human annotations, in order to evaluate the accuracy of different models." },
+        { "title": "Model selection", "content": "Sentiment models are typically trained on predefined datasets such as tweets; differences in context can significantly affect model performance. A recommended approach is to use an LLM for classification. For volumes at the 100k level, the cost is not prohibitive." },
+        { "title": "Predictive insights and domain knowledge", "content": "Predictive insights are highly dependent on domain knowledge, requiring deep involvement from domain experts at every stage: data collection (identifying useful data), feature engineering (injecting prior knowledge), and performance evaluation and calibration." },
+        { "title": "Generative models", "content": "Using generative models can reduce reliance on domain experts, as distribution parameters can be designed based on historically similar events." },
+        { "title": "Responsive design and performance", "content": "Taiwanese readers consume news heavily on mobile devices, making the interaction experience and loading speed of interactive visualizations on mobile a practical challenge that must be addressed." }
+      ]
+    },
+    {
+      "id": "fact-checking",
+      "name": "Fact Checking",
+      "description": "Integrating AI into the content moderation workflow for fact-checking and source verification, ensuring information accuracy before publication and enhancing reader trust.",
+      "prerequisites": [
+        { "displayName": "Article Content & Metadata", "globalId": "prereq-001", "items": ["Draft or published articles pending verification", "Headlines, publication date, author, and category"] },
+        { "displayName": "External Structured Data", "globalId": "prereq-005", "items": ["Established fact databases and reference repositories", "Trusted source whitelists (e.g., verified accounts, specific topic tags)"] },
+        { "displayName": "External Unstructured Data", "globalId": "prereq-006", "items": ["Social media posts (e.g., Twitter/X content for breaking news monitoring)", "Third-party news sources and wire services"] },
+        { "displayName": "Editorial Team Access", "globalId": "prereq-004", "items": ["Editors available for human-in-the-loop confidence score review", "Subject matter experts for edge-case verification"] }
+      ],
+      "useCases": [
+        { "name": "Automated Fact-Checking", "requiredPrereqIds": ["prereq-001", "prereq-005", "prereq-004"], "modellingProcess": "Entity extraction from article text; comparison against fact databases; confidence scoring with human-in-the-loop review", "modelOutput": "Fact-check annotations with confidence scores appended to articles", "referenceCase": "Checkmate Fact-Checking Tool" },
+        { "name": "Breaking News Verification", "requiredPrereqIds": ["prereq-006", "prereq-004"], "modellingProcess": "Whitelist-based spam filtering (tag or account selection); event detection; AI-assisted claim verification", "modelOutput": "Verified or flagged social media claims with source links", "referenceCase": "Twitter/X Breaking News Fact-Checking" }
+      ],
+      "technicalAssessments": [
+        { "title": "Data source stability", "content": "Social media platforms impose access restrictions, making consistent retrieval of content a persistent challenge. Whitelist-based approaches — such as filtering by verified accounts or specific hashtags — are more practical than broad-scope crawling." },
+        { "title": "Fact database currency", "content": "Reliable fact databases may not be updated in real time. For time-sensitive breaking news, real-time claim verification may still require manual editorial review, as automated cross-referencing against outdated databases can produce misleading confidence signals." },
+        { "title": "Agentic verification pipeline", "content": "Implementing an agentic flow can automate the inspection and verification process end-to-end, extracting key claims and gathering potential evidence, then surfacing only the items requiring human judgment to editors. This reduces manual workload while preserving editorial oversight and accuracy." },
+        { "title": "Existing user-status dependency", "content": "Current AI fact-checking approaches tend to rely on existing user reputation signals (e.g., account credibility scores) for claim validation. This introduces a dependency on platform-specific metadata that may not be consistently available or transferable across sources." }
+      ]
+    },
+    {
+      "id": "content-optimisation",
+      "name": "Content Optimisation",
+      "description": "Adjusting content based on reader motivations, behaviours, and preferences to ensure more relevant and valuable information is delivered at the individual reader level.",
+      "prerequisites": [
+        { "displayName": "Article Content & Metadata", "globalId": "prereq-001", "items": ["Full text of past articles, headlines, tags, publication date, author, category"] },
+        { "displayName": "Reader Behaviour Data", "globalId": "prereq-007", "items": ["Click-through records, dwell time, reading patterns, engagement metrics (e.g. shares, comments)", "Sufficient historical volume to move beyond cold-start; LLMs can partially mitigate early-stage data scarcity"] },
+        { "displayName": "User Needs Classification Framework", "globalId": "prereq-008", "items": ["A defined taxonomy for categorising reader intent and needs (e.g. Ringier-style user-needs model)", "Must be finalised before system build, as it determines annotation standards, training objectives, and evaluation metrics"] },
+        { "displayName": "CMS Integration Access", "globalId": "prereq-009", "items": ["Access to the content management system for low-latency inference and recommendation delivery", "Ability to display confidence scores and fallback mechanisms to maintain editorial trust"] },
+        { "displayName": "Editorial / Domain Expert Access", "globalId": "prereq-004", "items": ["Editorial staff available for framework validation, annotation quality control, and ongoing adoption feedback"] }
+      ],
+      "useCases": [
+        { "name": "User Needs Content Classification", "requiredPrereqIds": ["prereq-001", "prereq-008"], "modellingProcess": "Framework definition, article annotation, classifier training, user-need labelling, metadata tagging", "modelOutput": "Articles classified by reader need with auto-generated metadata tags", "referenceCase": "Ringier User Needs Model" },
+        { "name": "Headline & Metadata Optimisation", "requiredPrereqIds": ["prereq-001", "prereq-008", "prereq-009", "prereq-004"], "modellingProcess": "SEO keyword extraction, click-through and semantic fidelity balancing, confidence scoring", "modelOutput": "Optimised headline suggestions with confidence scores and consistent metadata tags", "referenceCase": "Ringier Content Optimisation" },
+        { "name": "Newsletter Personalisation", "requiredPrereqIds": ["prereq-001", "prereq-007"], "modellingProcess": "User profiling from behavioural signals, content-user matching, cold-start mitigation via LLM", "modelOutput": "Personalised content recommendations per subscriber", "referenceCase": "The Times × Twipe Newsletter Tool" }
+      ],
+      "technicalAssessments": [
+        { "title": "Structured understanding of reader intent", "content": "The choice of classification framework directly determines annotation standards, model training objectives, and evaluation methods. However, if the pipeline is designed to be sufficiently modular, the framework itself becomes pluggable, and the cost of replacement and experimentation can be significantly reduced." },
+        { "title": "Reader behaviour data availability", "content": "The upper bound of personalisation depends on how much user data the media organisation has access to. LLMs can provide a degree of mitigation during the cold-start phase but cannot replace the value of real behavioural data. The core challenge is that reader motivation cannot be measured directly — it can only be inferred indirectly through behavioural signals such as clicks and dwell time." },
+        { "title": "Tension between relevance and diversity", "content": "Purely optimising for relevance risks creating filter bubbles. The editorial responsibility of media organisations means this objective cannot be measured solely by machine-learning metrics; it must be accounted for at the system-design level." },
+        { "title": "Editorial adoption and trust", "content": "For AI-generated suggestions to be genuinely integrated into workflows, editors must develop sufficient confidence in the system. Designing confidence-score displays and fallback mechanisms is recommended to prevent rapid erosion of trust caused by unstable recommendations." }
+      ]
+    },
+    {
+      "id": "publishing-platform-promotion",
+      "name": "Publishing & Platform Promotion",
+      "description": "Generating keyword-rich headlines to improve search rankings and increase article traffic. Optimising social post timing, language, and content format to align with evolving platform algorithms and maximise social engagement.",
+      "prerequisites": [
+        { "displayName": "Article Content & Metadata", "globalId": "prereq-001", "items": ["Full text of articles, headlines, tags, publication date, author, category"] },
+        { "displayName": "Search Analytics Data", "globalId": "prereq-010", "items": ["Google Search Console data (active search intent, keyword rankings) and Google Discover data (passive push logic, click-through rates)", "Understanding of the fundamental difference between the two sources is essential, as their headline optimisation objectives can be mutually contradictory"] },
+        { "displayName": "Social Media Platform Access & Analytics", "globalId": "prereq-011", "items": ["Posting access and historical engagement metrics (reach, clicks, shares, comments) from target platforms (e.g. Facebook)", "Sufficient reach volume per post to support statistically reliable A/B testing"] },
+        { "displayName": "Brand Style Guide", "globalId": "prereq-012", "items": ["Documented brand standards and examples of successful headlines to serve as reference for prompt parameterisation", "A systematic method for converting qualitative brand criteria into actionable, programmable constraints (scoring rubric)"] },
+        { "displayName": "Experiment & Prompt Version Management Infrastructure", "globalId": "prereq-013", "items": ["Version-controlled prompt registry to track iterations, parameter configurations, and associated performance data", "Without systematic tracking, mixing prompt versions or diagnosing performance regressions becomes infeasible at scale"] }
+      ],
+      "useCases": [
+        { "name": "SEO Headline Generation", "requiredPrereqIds": ["prereq-001", "prereq-010", "prereq-012", "prereq-013"], "modellingProcess": "Search intent analysis, keyword extraction, brand-style parameterisation, multi-objective prompt design (Search vs. Discover)", "modelOutput": "SEO-optimised headline suggestions with brand-compliance scoring", "referenceCase": "Il Resto × FT Data Science SEO Headline Tool" },
+        { "name": "Social Media Engagement Optimisation", "requiredPrereqIds": ["prereq-001", "prereq-011"], "modellingProcess": "Historical engagement analysis, platform algorithm inference, optimal timing/format recommendation, A/B testing", "modelOutput": "Optimised social post recommendations (timing, language, format) with engagement predictions", "referenceCase": "The Telegraph × Echobox Social Optimisation" },
+        { "name": "Multi-Channel Distribution Strategy", "requiredPrereqIds": ["prereq-001", "prereq-010", "prereq-011", "prereq-012", "prereq-013"], "modellingProcess": "Multi-objective optimisation across search and social channels, dynamic feature weighting by target channel, counterfactual analysis for attribution", "modelOutput": "Channel-specific content variants with performance attribution reports and automated feedback loop", "referenceCase": "—" }
+      ],
+      "technicalAssessments": [
+        { "title": "Conflict of heterogeneous distribution logic", "content": "Search engines (active intent / semantic matching) and recommendation systems (passive push / emotional triggers) have fundamentally opposing optimisation paths. The system must support a multi-objective optimisation architecture capable of dynamically switching the feature weights and constraints for headline generation based on the target channel." },
+        { "title": "Quantifying qualitative standards", "content": "Brand style guides and content quality criteria are typically vague, qualitative descriptions that are difficult to translate directly into model parameters. A scoring rubric must be established to convert abstract brand standards into programmable constraints, enabling automated content quality gating." },
+        { "title": "Attribution and statistical robustness", "content": "Traffic performance is influenced by multiple collinear factors — article topic, publication timing, and platform algorithm drift — making traditional A/B testing highly prone to false-positive conclusions when sample sizes are insufficient. This challenge is particularly pronounced for small-to-medium-sized media organisations in Taiwan." },
+        { "title": "Engineering governance of the experiment loop", "content": "Ad-hoc testing cannot accumulate knowledge, and the lack of version management makes it difficult to trace and scale optimisation outcomes. An experiment lifecycle management system must be established to link prompt iterations, parameter configurations, and back-end performance data into an automated feedback and knowledge-accumulation mechanism." }
+      ]
+    },
+    {
+      "id": "personalised-recommendations",
+      "name": "Personalised Recommendations & Interaction",
+      "description": "Leveraging reader behaviour and AI to deliver individually relevant content recommendations and interactive experiences, including personalised push notifications and generative AI-powered question-answering over proprietary article archives.",
+      "prerequisites": [
+        { "displayName": "Article Content & Metadata", "globalId": "prereq-001", "items": ["Full text of articles, headlines, tags, publication date, author, category", "Content features (topic, format, length) required as initial signals for cold-start recommendation and RAG retrieval"] },
+        { "displayName": "Reader Behaviour & Interaction Data", "globalId": "prereq-007", "items": ["Reading history, notification click/dismiss records, bookmarked interests, dwell time", "Sufficient interaction volume to move beyond cold-start; for media with limited membership, demographic-based grouping is a more practical starting point"] },
+        { "displayName": "User Profile / Demographic Data", "globalId": "prereq-014", "items": ["Basic demographic attributes (age, location, device type) to serve as a fallback segmentation basis during data-sparse phases"] },
+        { "displayName": "Push Notification Infrastructure", "globalId": "prereq-015", "items": ["Delivery system with permission management, capable of dynamic frequency control per user", "Once notification permission is revoked by a user, the channel is permanently lost; the infrastructure must treat permission retention as a first-class optimisation objective"] },
+        { "displayName": "Vector Search & Retrieval Infrastructure", "globalId": "prereq-016", "items": ["A hybrid search stack (vector + keyword) with a reranking layer for the RAG-based chatbot use case", "A chunking strategy for news articles that preserves contextual coherence without introducing excessive noise"] }
+      ],
+      "useCases": [
+        { "name": "Personalised Push Notification Recommendations", "requiredPrereqIds": ["prereq-001", "prereq-007", "prereq-014"], "modellingProcess": "Demographic-based cold-start segmentation, interest-vector clustering as data matures, dynamic push frequency control based on user response history", "modelOutput": "Personalised article recommendations with individually optimised push timing and frequency", "referenceCase": "The Hindu Push Notification Personalisation" },
+        { "name": "Generative AI Chatbot (RAG-Based Q&A)", "requiredPrereqIds": ["prereq-001", "prereq-016"], "modellingProcess": "Temporal query parsing, hybrid search (vector + keyword), reranking, LLM generation with explicit attribution mechanism, contradiction handling strategy", "modelOutput": "Summary-based answers with verifiable source citations and confidence indicators", "referenceCase": "Financial Times Generative AI Chatbot" },
+        { "name": "Exploration–Exploitation Balanced Recommendations", "requiredPrereqIds": ["prereq-001", "prereq-007", "prereq-014"], "modellingProcess": "Content-feature extraction, bandit-style online learning, dynamic balance mechanism between relevance and diversity to mitigate filter bubbles", "modelOutput": "Diversified content recommendations with tuneable exploration ratio and engagement feedback loop", "referenceCase": "—" }
+      ],
+      "technicalAssessments": [
+        { "title": "Exploration versus exploitation balance", "content": "If personalised recommendations over-rely on historical behaviour, they reinforce existing preferences and narrow the content surface (filter bubble), ultimately reducing long-term engagement. Designing a dynamic balance mechanism between 'giving users what they want' and 'broadening their horizons' is the most fundamental product and technical trade-off in this scenario." },
+        { "title": "Cold-start severity in media versus e-commerce", "content": "Media content has an extremely short lifecycle — articles need effective recommendations within hours of publication, yet almost no interaction data is available at that point. This cannot be solved by collaborative filtering alone; content features must serve as initial signals, complemented by bandit-style online learning for rapid adaptation." },
+        { "title": "RAG reliability ceiling determined by retrieval quality", "content": "In generative Q&A workflows, hallucination is often over-emphasised; in practice, the more common failure mode is 'retrieving the wrong passage, upon which the LLM faithfully produces an incorrect answer.' The priority for improving system reliability should be: ensure retrieval precision first, then optimise generation." },
+        { "title": "Citation alignment as a trust bottleneck", "content": "Ensuring the model 'says A, cites A' does not happen automatically; an explicit attribution mechanism must be designed into the generation stage, and citation-answer correspondence must be independently verified during evaluation. Without this layer, sporadic citation errors will rapidly erode user trust." },
+        { "title": "Push notification as a scarce, non-recoverable resource", "content": "Once a user revokes notification permission, the channel is permanently lost. Push strategy must treat 'do not disturb' as an optimisation objective on equal footing with click-through rate, and design dynamic frequency control based on each user's historical response patterns rather than relying on fixed rules." }
+      ]
+    },
+    {
+      "id": "advertising",
+      "name": "Advertising",
+      "description": "AI solutions to improve the utilisation of unsold ad inventory and deliver more relevant ads to the right audiences, thereby increasing overall revenue efficiency.",
+      "prerequisites": [
+        { "displayName": "User Behaviour & Browsing Data", "globalId": "prereq-007", "items": ["Anonymous and authenticated browsing signals: reading topics, dwell time, visit frequency, source/referral paths", "A 90-day rolling window is a common baseline; users with shorter histories will have significantly lower segmentation quality"] },
+        { "displayName": "User Identity & Registration Data", "globalId": "prereq-017", "items": ["Login status and first-party identity graph to enable cross-session behaviour linkage, especially critical as third-party cookies phase out", "Self-reported demographic data (job title, industry, interests); note that completion rates are typically low"] },
+        { "displayName": "Ad Inventory & Campaign Performance Data", "globalId": "prereq-018", "items": ["Historical fill rates, CPM/CPC by placement, campaign delivery logs, and unsold inventory records", "Real-time inventory availability signals for latency-sensitive backfill operations"] },
+        { "displayName": "Ad Tech / DMP Infrastructure", "globalId": "prereq-019", "items": ["Data Management Platform capable of receiving audience segments and applying them as targeting filters in ad serving", "Integration path between the segmentation model output and the ad server or SSP for real-time decisioning"] },
+        { "displayName": "Creative Asset Pipeline", "globalId": "prereq-020", "items": ["Multi-dimensional creative assets (image, copy, video) with version tracking for audience-specific combinations", "Quality-control mechanism for AI-generated creatives to ensure visual and tonal consistency across variants"] }
+      ],
+      "useCases": [
+        { "name": "Audience Segmentation for Ad Targeting", "requiredPrereqIds": ["prereq-007", "prereq-017", "prereq-019"], "modellingProcess": "Behavioural feature engineering (attention proxy), demographic enrichment, audience clustering, DMP segment creation with reach-precision trade-off management", "modelOutput": "Describable audience segments for ad targeting, pricing negotiation, and custom audience-insight reports", "referenceCase": "Financial Times Audience Behaviour Segmentation" },
+        { "name": "AI-Driven Creative Optimisation", "requiredPrereqIds": ["prereq-007", "prereq-018", "prereq-020"], "modellingProcess": "Multi-dimensional creative combination generation, audience × creative matching, joint optimisation of placement / content version / timing", "modelOutput": "Optimised creative–audience combinations with performance predictions and explainability annotations", "referenceCase": "MLB × Claritas AI Campaign Optimisation" },
+        { "name": "Unsold Inventory Recovery", "requiredPrereqIds": ["prereq-007", "prereq-018", "prereq-019"], "modellingProcess": "Real-time inventory monitoring, unfilled-placement pattern detection, automated backfill ad assignment with latency-aware triggering", "modelOutput": "Automated backfill recommendations that re-monetise unsold placements before the impression window closes", "referenceCase": "Gazeta.pl AI Inventory Recovery" }
+      ],
+      "technicalAssessments": [
+        { "title": "Structural trade-off between precision and reach", "content": "The finer the audience segments, the more creative versions, and the stricter the targeting filters, the smaller the sample size per decision unit becomes. There is no solution that simultaneously maximises targeting precision and delivery scale — only explicit trade-offs under defined business objectives." },
+        { "title": "Identity resolution and cold-start under cookie deprecation", "content": "Unauthenticated users cannot have their behaviour linked across sessions, and this problem will worsen as third-party cookies continue to phase out. Building a first-party identity graph through registration incentives is a prerequisite for sustainable audience-data capability." },
+        { "title": "Proxy-label causality in feature engineering", "content": "Attention metrics are composite scores; if signals generated after ad exposure are mixed into the design, the metric circularly defines what it attempts to predict. The model then learns historical delivery bias rather than genuine content-engagement behaviour." },
+        { "title": "Combinatorial explosion in creative optimisation", "content": "Multi-dimensional creative combinations (image × copy × video × audience segment) grow explosively and exceed the capacity for manual review. With fine audience segments and many creative variants, exposure per combination becomes sparse, and statistical signals are insufficient." },
+        { "title": "Real-time latency sensitivity in inventory recovery", "content": "Real-time data analysis and pattern recognition for unsold inventory are sensitive to pipeline latency; if detection of unfilled placements is delayed too long, the remediation mechanism activates after the impression window has already closed." }
+      ]
+    },
+    {
+      "id": "subscription-growth",
+      "name": "Subscription Growth",
+      "description": "Machine learning can help optimise the timing, content, and presentation of paywalls while identifying optimal pricing strategies to improve conversion rates.",
+      "prerequisites": [
+        { "displayName": "User Behaviour & Session Data", "globalId": "prereq-007", "items": ["Page-view sequences, article read counts, dwell time, visit frequency, referral sources, and device type", "Behavioural sequences of sufficient length for reliable intent inference; new or low-frequency visitors will have significantly lower prediction accuracy"] },
+        { "displayName": "Subscription & Churn Records", "globalId": "prereq-021", "items": ["Historical subscription events (sign-up date, plan type, renewal/cancellation timestamps) to serve as positive labels for propensity modelling", "Expect severe class imbalance: subscribers represent an extremely small fraction of total users, requiring careful label design and sampling strategies"] },
+        { "displayName": "A/B Testing Infrastructure", "globalId": "prereq-022", "items": ["Randomised experiment framework capable of assigning users to control/treatment groups for paywall timing and pricing variants", "Essential for causal validation; without randomised experiments, the system cannot distinguish whether paywall timing drives conversion or merely correlates with pre-existing purchase intent"] },
+        { "displayName": "Paywall & CMS Integration", "globalId": "prereq-023", "items": ["Ability to dynamically control paywall display rules (trigger point, frequency, messaging) from model output in real time", "Integration with the subscription management system to feed conversion and retention outcomes back into the model loop"] },
+        { "displayName": "Legal & Compliance Review for Dynamic Pricing", "globalId": "prereq-024", "items": ["Pre-assessment of regulatory requirements in target markets regarding personalised pricing (price discrimination laws vary by jurisdiction)", "Awareness that users can trivially compare prices with one another, creating trust risk even where dynamic pricing is legally permissible"] }
+      ],
+      "useCases": [
+        { "name": "Smart Paywall Timing", "requiredPrereqIds": ["prereq-007", "prereq-021", "prereq-022", "prereq-023"], "modellingProcess": "Propensity scoring with class-imbalance handling, real-time session intent inference, A/B-validated trigger-point selection, conversion–churn trade-off modelling", "modelOutput": "Per-user paywall trigger rules (timing, frequency, messaging variant) with causal conversion-lift estimates", "referenceCase": "The Globe and Mail AI Paywall Optimisation" },
+        { "name": "Dynamic Subscription Pricing", "requiredPrereqIds": ["prereq-007", "prereq-021", "prereq-022", "prereq-024"], "modellingProcess": "Price-elasticity estimation, willingness-to-pay modelling, fairness-constrained optimisation, randomised price experiments", "modelOutput": "Personalised pricing recommendations with compliance guardrails and trust-risk flags", "referenceCase": "Bild ML Dynamic Pricing" },
+        { "name": "Churn Prevention & Retention Intervention", "requiredPrereqIds": ["prereq-007", "prereq-021", "prereq-022", "prereq-023"], "modellingProcess": "Survival analysis for time-to-churn modelling, sequence models for pre-churn signal detection, uplift modelling for intervention effectiveness, A/B-validated discount offers", "modelOutput": "Churn-risk scores with recommended intervention actions and causally validated lift estimates", "referenceCase": "—" }
+      ],
+      "technicalAssessments": [
+        { "title": "Short-term conversion versus long-term retention trade-off", "content": "Both paywall timing and pricing optimisation easily fall into the trap of targeting short-term conversion rates. A high conversion rate does not guarantee a high retention rate; overly aggressive intervention strategies may boost subscription numbers in the short term while accumulating long-term user attrition." },
+        { "title": "Personalisation versus fairness", "content": "Whether through dynamic paywalls or dynamic pricing, the higher the degree of personalisation, the more visible the differential treatment of different users becomes. This creates sustained friction across two dimensions: legal compliance and user trust." },
+        { "title": "Causal identification — correlation versus intervention effect", "content": "A system may observe that showing a paywall after the third article yields the highest conversion rate. However, this correlation rests on an unverified assumption: that the paywall caused the subscription, rather than that users willing to read three articles already had higher purchase intent." },
+        { "title": "Validating whether the intervention is effective", "content": "A/B testing is the gold standard — randomly assigning users with identical characteristics into groups is the only way to isolate the user's inherent purchase intent from the paywall intervention's effect. When sample sizes are insufficient or randomisation is infeasible, uplift modelling offers a second-best alternative." },
+        { "title": "Determining when to intervene", "content": "Propensity models, survival analysis, and sequence models address different aspects of timing prediction. Their common application is proactive intervention when the system detects rising churn risk. The effectiveness of such interventions must loop back to causal validation to confirm whether the discount genuinely reduced churn." }
+      ]
+    },
+    {
+      "id": "user-retention-ltv",
+      "name": "User Retention & Lifetime Value",
+      "description": "Using AI to identify subscribers at risk of churn and recommend more relevant content or products, further enhancing user lifetime value (LTV).",
+      "prerequisites": [
+        { "displayName": "User Behavioural Data", "globalId": "prereq-007", "items": ["Reading history, click patterns, session duration, page views, engagement frequency", "Temporal behavioural sequences for survival analysis (login cadence, reading trends over time)"] },
+        { "displayName": "Subscription & Transaction Data", "globalId": "prereq-021", "items": ["Subscription status, plan type, payment history, renewal dates", "Historical churn events with timestamps (for model training and class imbalance handling)"] },
+        { "displayName": "Content Interaction Data", "globalId": "prereq-025", "items": ["Articles read, comments posted, columnist follows, content shares", "Action-level logs with natural occurrence rates (for action probability estimation)"] },
+        { "displayName": "Domain Expert Access", "globalId": "prereq-004", "items": ["Subject matter experts for defining meaningful churn signals and validating model outputs", "Business stakeholders for LTV component decomposition and calibration of action value scores"] }
+      ],
+      "useCases": [
+        { "name": "Churn Prediction", "requiredPrereqIds": ["prereq-007", "prereq-021"], "modellingProcess": "Survival analysis, sparse signal extraction, imbalanced sample handling, temporal risk windowing", "modelOutput": "Churn probability scores with dynamic risk windows", "referenceCase": "Financial Times Churn Prediction" },
+        { "name": "Next Best Action Recommendation", "requiredPrereqIds": ["prereq-007", "prereq-021", "prereq-025"], "modellingProcess": "Action probability estimation, action value scoring, multi-objective ranking fusion", "modelOutput": "Personalised action recommendations ranked by expected value", "referenceCase": "Financial Times Next Best Action" },
+        { "name": "LTV Optimisation", "requiredPrereqIds": ["prereq-007", "prereq-021", "prereq-025", "prereq-004"], "modellingProcess": "LTV decomposition into retention probability, future payment propensity, and cross-sell opportunity; component-wise modelling and synthesis", "modelOutput": "Composite LTV estimates per user segment with actionable levers", "referenceCase": "Financial Times LTV Framework" }
+      ],
+      "technicalAssessments": [
+        { "title": "Signal sparsity & temporal structure", "content": "Retention prediction is fundamentally a survival analysis problem, not a standard binary classification task. User churn risk changes dynamically over time, and different users have varying 'hazard windows.' Churn events are inherently rare, creating extreme class imbalance." },
+        { "title": "Unobservable external churn factors", "content": "A portion of user churn is driven by external factors (competitor emergence, changes in personal financial circumstances, life events). These users may exhibit completely normal on-platform behavioural sequences before churning, making it impossible for any internal signal to predict such churn." },
+        { "title": "Action probability estimation challenges", "content": "Probability estimation relies on historical behavioural data, but certain actions (e.g., commenting, following columnists) have inherently low natural occurrence rates, resulting in sparse positive samples and unreliable probability estimates." },
+        { "title": "Multi-objective score fusion", "content": "Action probability and action value are two fundamentally different scores, and there is no single correct way to combine them. The ranking logic between high-probability, low-value actions and low-probability, high-value actions differs entirely depending on the fusion design." },
+        { "title": "LTV optimisation target ambiguity", "content": "LTV is a composite metric simultaneously influenced by retention probability, future payment propensity, cross-sell opportunities, and word-of-mouth propagation. A more complete framework should decompose LTV into independently modellable components, estimate each separately, and then synthesise." }
+      ]
+    }
+  ]
+}
