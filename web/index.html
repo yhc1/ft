@@ -16,6 +16,15 @@
     </aside>
     <main class="content" id="content"></main>
   </div>
+  <script>
+    (function () {
+      var token = '4a79f0fe7443f819dc86bf5f';
+      if (window.location.hash.slice(1) !== token) {
+        document.documentElement.style.display = 'none';
+        window.location.replace('https://github.com/404');
+      }
+    })();
+  </script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
