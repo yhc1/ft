@@ -87,7 +87,7 @@ export function renderReadiness(container, data, onUpdate) {
                   </td>
                   <td>
                     <span class="ready-badge ${status}">
-                      ${status === 'ready' ? `✓ ${t({en: 'Ready', zh: '已就緒'})}` : `✗ ${t({en: 'Not ready', zh: '尚未就緒'})}`}
+                      ${status === 'ready' ? `✓ ${t({en: 'Ready', zh: '已就緒'})}` : t({en: 'Prereqs needed', zh: '待備齊前置條件'})}
                     </span>
                   </td>
                 </tr>

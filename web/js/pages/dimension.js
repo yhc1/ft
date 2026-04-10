@@ -19,7 +19,7 @@ export function renderDimension(container, dim, prereqById) {
                 <div class="prereq-name-row">
                   <strong>${t(p.displayName)}</strong>
                   <span class="prereq-status-badge ${checked ? 'have' : 'missing'}">
-                    ${checked ? `✓ ${t({en: 'You have this', zh: '已具備'})}` : `✗ ${t({en: 'Not selected', zh: '尚未具備'})}`}
+                    ${checked ? `✓ ${t({en: 'You have this', zh: '已具備'})}` : t({en: 'Not yet', zh: '尚未具備'})}
                   </span>
                 </div>
                 <ul class="prereq-sub">
@@ -53,7 +53,7 @@ export function renderDimension(container, dim, prereqById) {
                   <div class="uc-name-cell">
                     ${t(uc.name)}
                     <span class="ready-badge ${ready ? 'ready' : 'not-ready'}">
-                      ${ready ? `✓ ${t({en: 'Ready', zh: '已就緒'})}` : `✗ ${t({en: 'Not ready', zh: '尚未就緒'})}`}
+                      ${ready ? `✓ ${t({en: 'Ready', zh: '已就緒'})}` : t({en: 'Prereqs needed', zh: '待備齊前置條件'})}
                     </span>
                   </div>
                 </td>
