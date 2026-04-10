@@ -2,6 +2,7 @@ import { renderSidebar } from './sidebar.js';
 import { renderFoundational } from './pages/foundational.js';
 import { renderReadiness } from './pages/readiness.js';
 import { renderDimension } from './pages/dimension.js';
+import { getLang, setLang } from './lang.js';
 
 let appData = null;
 
@@ -16,7 +17,8 @@ async function loadData() {
 }
 
 function navigate(pageId) {
-  history.replaceState(null, '', `#${pageId}`);
+  const params = new URLSearchParams(window.location.search);
+  history.replaceState(null, '', `?${params.toString()}#${pageId}`);
   render(pageId);
 }
 
@@ -36,6 +38,20 @@ function render(pageId) {
   }
 
   renderSidebar(appData, navigate, pageId);
+  renderLangSwitcher();
+}
+
+function renderLangSwitcher() {
+  const switcher = document.getElementById('lang-switcher');
+  if (!switcher) return;
+  const lang = getLang();
+  switcher.innerHTML = `
+    <button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en">EN</button>
+    <button class="lang-btn ${lang === 'zh' ? 'active' : ''}" data-lang="zh">中</button>
+  `;
+  switcher.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
 }
 
 function getCurrentPage() {

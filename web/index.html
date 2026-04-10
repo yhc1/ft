@@ -5,26 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AIL Readiness Assessment</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var token = '4a79f0fe7443f819dc86bf5f';
+      if (params.get('t') !== token) {
+        document.documentElement.style.display = 'none';
+        window.location.replace('https://github.com/404');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="sidebar-logo">AIL Readiness Assessment</div>
+        <div id="lang-switcher" class="lang-switcher"></div>
       </div>
       <nav class="sidebar-nav" id="sidebar-nav"></nav>
     </aside>
     <main class="content" id="content"></main>
   </div>
-  <script>
-    (function () {
-      var token = '4a79f0fe7443f819dc86bf5f';
-      if (window.location.hash.slice(1) !== token) {
-        document.documentElement.style.display = 'none';
-        window.location.replace('https://github.com/404');
-      }
-    })();
-  </script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
