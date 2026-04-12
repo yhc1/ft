@@ -45,12 +45,18 @@ function renderLangSwitcher() {
   const switcher = document.getElementById('lang-switcher');
   if (!switcher) return;
   const lang = getLang();
+  const username = sessionStorage.getItem('ail_username') || '';
   switcher.innerHTML = `
     <button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en">EN</button>
     <button class="lang-btn ${lang === 'zh' ? 'active' : ''}" data-lang="zh">中</button>
+    <button class="lang-btn logout-btn" id="logout-btn" title="Sign out (${username})">⏻</button>
   `;
   switcher.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('ail_username');
+    window.location.replace('/login.html');
   });
 }
 

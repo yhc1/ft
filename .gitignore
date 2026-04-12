@@ -1,4 +1,6 @@
 .DS_Store
+.env.local
+pwd.md
 .superpowers/
 .venv/
 __pycache__/

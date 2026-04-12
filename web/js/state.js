@@ -1,4 +1,5 @@
-const STORAGE_KEY = 'ail_checked_prereqs';
+const _username = sessionStorage.getItem('ail_username') || 'default';
+const STORAGE_KEY = _username + '_ail_checked_prereqs';
 
 let checkedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
 
