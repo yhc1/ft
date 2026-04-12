@@ -1,11 +1,11 @@
-module.exports = function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+export async function POST(request) {
+  const { username, password } = await request.json();
 
-  const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ error: 'Missing credentials' });
+    return new Response(JSON.stringify({ error: 'Missing credentials' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const accounts = (process.env.ACCOUNTS || '').split(',').reduce((acc, entry) => {
@@ -15,8 +15,14 @@ module.exports = function handler(req, res) {
   }, {});
 
   if (accounts[username] && accounts[username] === password) {
-    return res.status(200).json({ username });
+    return new Response(JSON.stringify({ username }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
-  return res.status(401).json({ error: 'Invalid credentials' });
+  return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
+    status: 401,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
