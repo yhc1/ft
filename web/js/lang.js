@@ -1,6 +1,6 @@
 export function getLang() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('lang') === 'zh' ? 'zh' : 'en';
+  return params.get('lang') === 'en' ? 'en' : 'zh';
 }
 
 export function t(field) {
