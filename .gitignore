@@ -1,5 +1,7 @@
 .DS_Store
+state.json
 .env.local
+.env.accounts
 pwd.md
 .superpowers/
 .venv/
@@ -15,3 +17,4 @@ instructions.md
 .vercel
 /interview
 .claude/
+.env*.local

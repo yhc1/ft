@@ -3,6 +3,7 @@ import { renderFoundational } from './pages/foundational.js';
 import { renderReadiness } from './pages/readiness.js';
 import { renderDimension } from './pages/dimension.js';
 import { getLang, setLang } from './lang.js';
+import { init as initState } from './state.js';
 
 let appData = null;
 
@@ -65,6 +66,7 @@ function getCurrentPage() {
 }
 
 async function init() {
+  await initState();
   appData = await loadData();
   render(getCurrentPage());
   window.addEventListener('hashchange', () => render(getCurrentPage()));

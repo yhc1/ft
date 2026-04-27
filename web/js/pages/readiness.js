@@ -99,8 +99,8 @@ export function renderReadiness(container, data, onUpdate) {
     `;
 
     container.querySelectorAll('.prereq-card').forEach(btn => {
-      btn.addEventListener('click', () => {
-        togglePrereq(btn.dataset.id);
+      btn.addEventListener('click', async () => {
+        await togglePrereq(btn.dataset.id);
         mount();
         onUpdate();
       });
